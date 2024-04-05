@@ -1,0 +1,52 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{%block content%}
+<main class="container-sm-fluid container-lg mt-4">
+  <div class="d-flex gap-3 align-items-center">
+    <h1>Hot Questions</h1>
+
+    <a href="{% url 'index' %}">New Questions</a>
+  </div>
+</main>
+
+
+<div class="container-sm-fluid container-lg">
+  <main class="row">
+    <div class="col-8">
+      {% for question in questions%}
+      <article class="card mb-3 mw-100">
+        <div class="row g-0">
+          <div class="col-3 pd-2">
+            <div class="mb-3" height: 70px width: 70px>
+            <img
+              src="/static/img/img.png"
+              class="img-fluid rounded-start"
+              alt="..."
+            />
+          </div>
+          <div class="input-group flex-nowrap">
+            <input type="number" value="5" class="form-control" />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="/qustions.html">{{question.title }}</a>
+            </h5>
+            <p class="card-text">{{question.text}}</p>
+            <div class="row">
+              <a class="col-4" href="/questions.html">answers (3)</a>
+              <div class="col-8">
+                <span>Tags:</span>
+                <a href="/tag.html">tag1</a>
+                <a href="/tag.html">tag2</a>
+                <a href="/tag.html">tag3</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %} {% endblock %}
+    </div>
+  </main>
+</div>
