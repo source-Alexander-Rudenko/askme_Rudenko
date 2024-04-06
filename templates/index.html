@@ -43,16 +43,15 @@
       </div>
     </nav>
 
-    <main class="container-sm-fluid container-lg mt-4">
-      <div class="d-flex gap-3 align-items-center">
-        <h1>New Questions</h1>
-    
-        <a href="{% url 'hot' %}">Hottest Questions</a>
-      </div>
-    </main>
-
     <div class="container-sm-fluid container-lg">
       <main class="row">
+        <main class="container-sm-fluid container-lg mt-4">
+          <div class="d-flex gap-3 align-items-center">
+            <h1>New Questions</h1>
+        
+            <a href="{% url 'hot' %}">Hottest Questions</a>
+          </div>
+        </main>
         <div class="col-8">
           {% for question in questions%}
           <article class="card mb-3 mw-100">
