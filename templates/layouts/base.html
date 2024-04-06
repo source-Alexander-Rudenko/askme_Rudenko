@@ -11,7 +11,7 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link href="/static/css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
   </head>
   <body>
     <nav class="navbar" style="background-color: rgb(118, 228, 173)">
@@ -69,7 +69,7 @@
       </main>
     </div>
     <footer
-      class="d-flex flex-wrap justify-content-between align-items-end py-3 my-4 border-top"
+      class="d-flex flex-wrap justify-content-between align-items-end py-3 mt-4 border-top"
       style="background-color: rgb(212, 211, 211)"
     >
       <div class="col-md-4 d-flex align-items-center">
@@ -78,7 +78,7 @@
           class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
         >
           <img
-            src="/static/img/bootstrap.png"
+            src="{% static '/img/bootstrap.png' %}"
             alt="Bootstrap Icon"
             width="30"
             height="30"
@@ -91,7 +91,7 @@
         <li class="ms-3">
           <a class="text-muted" href="#">
             <img
-              src="/static/img/github.png"
+              src="{% static '/img/github.png' %}"
               alt="GitHub Icon"
               width="24"
               height="24"
@@ -101,7 +101,7 @@
         <li class="ms-3">
           <a class="text-muted" href="https://t.me/ale_username">
             <img
-              src="/static/img/telegram.png"
+              src="{% static '/img/telegram.png' %}"
               alt="Telegram Icon"
               width="24"
               height="24"

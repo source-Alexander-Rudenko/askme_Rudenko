@@ -1,15 +1,17 @@
-{% extends "layouts/base.html" %} {% load static %} {%block content%}
+{% extends "layouts/base.html" %} 
+{% load static %} 
+{%block content%}
 <main class="container-sm-fluid container-lg mt-4">
   <div class="d-flex gap-3 align-items-center">
-    <h1>HOT</h1>
-
-    <a href="{% url 'index' %}">new</a>
+    <h1>question page</h1>
   </div>
 </main>
 <div class="col-8">
-  {% for question in questions%}
     {% include "layouts/question.html" with item=question %}
-  {% endfor %}
+
+    <hr>
+
+    {% include "layouts/answer.html" %}
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       <li class="page-item">
