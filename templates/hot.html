@@ -7,11 +7,11 @@
   </div>
 </main>
 <div class="col-8">
-  {% for question in questions%}
+  {% for question in page_obj%}
     {% include "layouts/question.html" with item=question %}
   {% endfor %}
 
-  {% include "layouts/pagination.html" with page_obj=questions %}
+  {% include "layouts/pagination.html"%}
   
 </div>
 {% endblock %}

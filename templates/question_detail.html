@@ -10,9 +10,13 @@
     {% include "layouts/question.html" with item=question %}
 
     <hr>
+    
+    {% for answers in page_obj%}
+      {% include "layouts/answer.html" with item=answers%}
+    {% endfor %}
+      
+    
 
-    {% include "layouts/answer.html" %}
-
-    {% include "layouts/pagination.html" with page_obj=answer %}
+    {% include "layouts/pagination.html"%}
 </div>
 {% endblock %}
