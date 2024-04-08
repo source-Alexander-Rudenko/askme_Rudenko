@@ -3,3 +3,7 @@
     border-color: gray; /* Измените цвет границы на серый */
     color: rgb(13, 110, 253); /* Измените цвет текста на черный */
 }
+.invisible-link {
+    text-decoration: none;
+    color: inherit; /* Сохраняем цвет текста по умолчанию */
+}

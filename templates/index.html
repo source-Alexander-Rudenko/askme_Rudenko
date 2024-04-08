@@ -1,9 +1,11 @@
-{% extends "layouts/base.html" %} {% load static %} {%block content%}
+{% extends "layouts/base.html" %}
+{% load static %}
+{%block content%}
 <main class="container-sm-fluid container-lg mt-4">
   <div class="d-flex gap-3 align-items-center">
     <h1>Main page</h1>
 
-    <a href="{% url 'hot' %}">new</a>
+    <a href="{% url 'hot' %}">hottest posts</a>
   </div>
 </main>
 <div class="col-8">
