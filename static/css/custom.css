@@ -7,3 +7,27 @@
     text-decoration: none;
     color: inherit; /* Сохраняем цвет текста по умолчанию */
 }
+
+.question-avatar {
+    height: 80px;
+    width: 80px;
+}
+
+.profile-avatar {
+    height: 50px;
+    width: 50px;
+    
+}
+.profile-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 45px;
+}
+
+.question-avatar > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 45px;
+}

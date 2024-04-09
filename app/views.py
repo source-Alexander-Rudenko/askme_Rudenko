@@ -35,7 +35,7 @@ def question(request, question_id: int):
     try:
         questions = models.QUESTIONS
         answers = models.ANSWERS
-        page_obj = paginate(answers, request, 5)
+        page_obj = paginate(answers, request, 3)
         question = questions[question_id]
 
         context = {
