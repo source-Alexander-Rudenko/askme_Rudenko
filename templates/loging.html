@@ -1,27 +1,24 @@
-{% extends "layouts/base.html" %} 
-{% load static %} 
-{%block content%}
+{% extends "layouts/base.html" %} {% load static %} {%block content%}
 <main class="container-sm-fluid container-lg mt-4">
-  <div class="d-flex gap-3 align-items-center">
-    <h1>question page</h1>
-  </div>
+	<div class="d-flex gap-3 align-items-center">
+		<h1>Log In</h1>
+	</div>
 </main>
-<div class="col-8">
-    {% include "layouts/question.html" with item=question %}
+<div class="col-8 flex-column flex-column min-vh-100">
+	<form method="post">
+		<div class="mb-3">
+			<label for="exampleFormControlInput1" class="form-label">Email address</label>
+			<input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="name@mail.ru" />
+		</div>
+		<label for="inputPassword5" class="form-label">Password</label>
+		<input type="password" id="inputPassword5" name="password" class="form-control" aria-describedby="passwordHelpBlock" />
+		<div id="passwordHelpBlock" class="form-text">Your password must be 8-20 characters long</div>
+	
+		<button type="submit" class="btn btn-outline-success mt-2">Log In!</button>
+	</form>
+	
+	<a href="{% url 'signup' %}">Create new account!</a>
 
-    <hr>
-
-    {% include "layouts/answer.html" %}
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" href="#">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-  </nav>
+	
 </div>
 {% endblock %}

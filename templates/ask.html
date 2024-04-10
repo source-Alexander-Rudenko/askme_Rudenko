@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %} {% load static %} {%block content%}
+<main class="container-sm-fluid container-lg mt-4">
+	<h1>New Question</h1>
+</main>
+
+<div class="col-8 flex-column flex-column min-vh-100">
+	<div class="mt-2 pt-2">
+		<form class="col-11 new-question-form">
+			<div class="error failure">Fill in all fields</div>
+			<div class="form-group form-group-flex">
+				<label class="question-form-label mt-2" for="questionTitle">Title:</label>
+				<input class="form-control question-form" id="questionTitle" placeholder="How to build a moon park?" required />
+			</div>
+			<div class="form-group form-group-flex">
+				<label class="question-form-label mt-2" for="questionText">Text:</label>
+				<textarea class="form-control question-form" id="questionText" placeholder="Really, how? Have no idea about it" rows="8" required></textarea>
+			</div>
+			<div class="form-group form-group-flex">
+				<label class="question-form-label mt-2" for="questionTags">Tags:</label>
+				<textarea class="form-control question-form" id="questionTags" placeholder="moon, park, puzzle" rows="1" required></textarea>
+			</div>
+			<button type="submit" class="btn btn-dark submit-button sbmt-ask-btn mt-4">Ask!</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

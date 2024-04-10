@@ -1,0 +1,67 @@
+{% extends "layouts/base.html" %} {% load static %} {%block content%}
+<main class="container-sm-fluid container-lg mt-4">
+	<div class="d-flex gap-3 align-items-center">
+	  <h1>Register</h1>
+	</div>
+  </main>
+  <div class="col-8 flex-column flex-column min-vh-100">
+	<form method="post">
+	  <div class="--bs-danger">
+		Sorry, this email address is already registred!
+	  </div>
+	  <div class="form-group form-group-flex mb-2">
+		<label class="reg-form-label" for="userLogin">Login:</label>
+		<input
+		  class="form-control reg-form"
+		  id="userLogin"
+		  placeholder="your_login"
+		/>
+	  </div>
+	  <div class="form-group form-group-flex mb-2">
+		<label class="reg-form-label" for="userNick">Email address:</label>
+    	<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+	  </div>
+	  <div class="form-group form-group-flex mb-2">
+		<label class="reg-form-label" for="userNick">Nickname:</label>
+		<input
+		  class="form-control reg-form"
+		  id="userNick"
+		  placeholder="Rudenko Alexander"
+		/>
+	  </div>
+	  <div class="form-group form-group-flex mb-2">
+		<label class="reg-form-label" for="userPsw">Password:</label>
+		<input
+		  type="password"
+		  class="form-control reg-form"
+		  id="userPsw"
+		  placeholder="password"
+		/>
+	  </div>
+	  <div class="form-group form-group-flex mb-2">
+		<label class="reg-form-label-grow-1" for="userRepeatPsw"
+		  >Repeat Password:</label
+		>
+		<input
+		  type="password"
+		  class="form-control reg-form"
+		  id="userRepeatPsw"
+		  placeholder="password"
+		/>
+	  </div>
+	  <div class="form-group form-group-flex mb-2">
+		<label class="reg-form-label" for="avatarFile">Avatar:</label>
+		<input type="file" class="form-control reg-form" id="avatarFile" />
+	  </div>
+
+	  <button
+		type="submit"
+		class="btn btn-dark submit-button sbmt-reg-btn mt-2 mb-2"
+	  >
+		Register!
+	  </button>
+	</form>
+
+	<a href="{% url 'loging' %}">Already have an account?</a>
+  </div>
+{% endblock %}

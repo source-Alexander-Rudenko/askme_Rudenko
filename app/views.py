@@ -52,12 +52,26 @@ def question(request, question_id: int):
         
 
 def hot(request):
-    questions = models.QUESTIONS[5:]
-    page_obj = paginate(questions, request, 6)
-    context = {'page_obj': page_obj,
-               'questions': models.QUESTIONS,
-               'tags': models.TAGS,
-               'users': models.USER,
-               }
-    return render(request, 'hot.html', context)
+    try:   
+        questions = models.QUESTIONS[5:]
+        page_obj = paginate(questions, request, 6)
+        context = {'page_obj': page_obj,
+                'questions': models.QUESTIONS,
+                'tags': models.TAGS,
+                'users': models.USER,
+                }
+        return render(request, 'hot.html', context)
+    except:
+        raise Http404("Page does not exist")
 
+def loging(request):
+    return render(request, 'loging.html')
+
+def signup(request):
+    return render(request, 'signup.html')
+
+def settings(request):
+    return render(request, 'settings.html')
+
+def ask(request):
+    return render(request, 'ask.html')

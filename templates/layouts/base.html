@@ -18,7 +18,7 @@
 				</a>
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-					<button class="btn btn-outline-success" type="submit">Search</button>
+					<a class="btn btn-outline-success" href="{% url 'ask' %}">Ask</a>
 				</form>
 				<div class="d-flex justify-content-between gap-2">
 					<div class="profile-avatar">
@@ -28,7 +28,7 @@
 						<div>Linux enjoyer</div>
 						<div>
 							<a href="/settings.html">Settings</a>
-							<a href="/logout.html">Log out</a>
+							<a href="{% url 'signup' %}">Log out</a>
 						</div>
 					</div>
 				</div>
