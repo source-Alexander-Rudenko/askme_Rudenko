@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %} {% load static %} {%block content%}
+<main class="container-sm-fluid container-lg mt-4">
+    <div class="d-flex gap-3 align-items-center">
+        <h1>Settings: User.name</h1>
+    </div>
+</main>
+<div class="col-8 flex-column flex-column min-vh-100">
+    <form method="post">
+        <div class="text-danger">
+            Sorry, this email address is already registred!
+        </div>
+        <div class="form-group form-group-flex mb-2">
+            <label class="reg-form-label" for="userLogin">Login:</label>
+            <input
+                    class="form-control reg-form"
+                    id="userLogin"
+                    placeholder="your_login"
+            />
+        </div>
+        <div class="form-group form-group-flex mb-2">
+            <label class="reg-form-label" for="userMail">Email:</label>
+            <input
+                    class="form-control reg-form"
+                    id="userMail"
+                    placeholder="example@mail.ru"
+            />
+        </div>
+        <div class="form-group form-group-flex mb-2">
+            <label class="reg-form-label" for="userNick">Nickname:</label>
+            <input
+                    class="form-control reg-form"
+                    id="userNick"
+                    placeholder="Rudenko Alexander"
+            />
+        </div>
+        <div class="clearfix">
+            <svg
+                    class="bd-placeholder-img rounded mx-auto d-block mt-2 mb-2 border float-start"
+                    width="90"
+                    height="90"
+                    role="img"
+                    aria-label="Placeholder: 90x90"
+                    preserveAspectRatio="xMidYMid slice"
+                    focusable="false"
+            >
+                <title>Avatar</title>
+                <image
+                        href="path/to/your/image.jpg"
+                        width="90"
+                        height="90"
+                        x="0"
+                        y="0"
+                />
+            </svg>
+        </div>
+
+        <div class="form-group form-group-flex mb-2">
+            <label class="reg-form-label" for="avatarFile">Profile picture:</label>
+            <input type="file" class="form-control reg-form" id="avatarFile"/>
+        </div>
+
+        <button
+                type="submit"
+                class="btn btn-dark submit-button sbmt-reg-btn mb-2"
+        >
+           Save
+        </button>
+    </form>
+</div>
+{% endblock %}
