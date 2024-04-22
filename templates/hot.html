@@ -8,10 +8,10 @@
 </main>
 <div class="col-8">
   {% for question in page_obj%}
-    {% include "layouts/question.html" with item=question %}
+    {% include "components/question.html" with item=question %}
   {% endfor %}
 
-  {% include "layouts/pagination.html"%}
+  {% include "components/pagination.html"%}
   
 </div>
 {% endblock %}

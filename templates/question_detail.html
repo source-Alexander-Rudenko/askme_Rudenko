@@ -7,14 +7,16 @@
   </div>
 </main>
 <div class="col-8">
-    {% include "layouts/question.html" with item=question %}
+    {% include "components/question.html" with item=question %}
 
     <hr class="mt-3 mb-3">
     
     {% for answers in page_obj%}
-      {% include "layouts/answer.html" with item=answers%}
+      {% include "components/answer.html" with item=answers%}
     {% endfor %}
-      
+    
+    {% include "components/pagination.html"%}
+
     <hr class="mt-3 mb-3">
 
     <div class="form-floating">
@@ -23,6 +25,5 @@
     </div>
     <button class="btn btn-primary mt-2 mb 2" type="submit">Отправить</button>
 
-    {% include "layouts/pagination.html"%}
 </div>
 {% endblock %}

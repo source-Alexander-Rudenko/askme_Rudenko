@@ -3,23 +3,27 @@ from django.shortcuts import HttpResponse
 from django.core.paginator import Paginator
 from app import models
 from django.http import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 
-# Create your views here.
 def paginate(objects_list, request, per_page=3):
     paginator = Paginator(objects_list, per_page)
-    try:
-        limit = int(request.GET.get('page', 10))
-    except ValueError:
-        limit = 10
-    if limit > 10:
-        limit = 10
-    try:
-        page_number  = int(request.GET.get('page', 1))
-    except ValueError:
-        raise Http404
+    page_number = request.GET.get('page')
 
-    return paginator.get_page(page_number)
+    if page_number is None:
+        page_number = 1
+
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        raise Http404("Page number is not an integer")
+    except EmptyPage:
+        # Handle empty page, return last page
+        page_obj = paginator.page(paginator.num_pages)
+    if int(page_number) > paginator.num_pages:
+        raise Http404("Page does not exist")
+
+    return page_obj
 
 def index(request):
     questions = models.QUESTIONS
@@ -30,6 +34,8 @@ def index(request):
                'users': models.USER,
                }
     return render(request, 'index.html', context)
+
+
 
 def question(request, question_id: int):
     try:
