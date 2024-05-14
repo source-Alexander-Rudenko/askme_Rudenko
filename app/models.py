@@ -1,49 +1,37 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
-USER = [
-    {
-        'id': id,
-        'avatar': f'img/avatar{id}.png',
-        'name': f'User{id}',
-        'rating': 100 * id
-    } for id in range(33)
-]
+class ProfileManager(models.Manager):
+    def get_top_5(self):
+        return self.order_by('-rating')[:5]
 
-ANSWERS = [
-    {
-        'id': id,
-        'user': USER[id],
-        'rating': 100 - id,
-        'text': f'Ответ на вопрос с номером -{id}',
-        'right_flag': False,
-        'time_ago': f"{id} minutes ago"
-    } for id in range(30)
-]
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    avatar = models.ImageField(upload_to='static/img/avatar', blank=True, null=True)
+    name = models.CharField(max_length=255)
+    rating = models.IntegerField(default=0)
 
-TAGS = [
-    {
-        'id': id,
-        'name': f'Tag {id}',
-    } for id in range(12)
-]
+    objects = ProfileManager()
 
-QUESTIONS = [
-    {
-        'id': id,
-        'user': USER[id],
-        'title': f'Question {id}',
-        'text': f'This is question number {id}',
-        'rating': 10 * id, 
-        "answers_amount": id + 1,
-        'answers': ANSWERS[id:(id+7):1],
-        'tags': TAGS[id % 8:id % 8 + 3],
-        'time_ago': f'{id} minutes ago'
-    } for id in range(30)
-]
+class Answer(models.Model):
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='answers')
+    question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='answers')
+    rating = models.IntegerField(default=0)
+    right = models.BooleanField(null=True)
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
 
+class Like(models.Model):
+    from_user = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='likes')
+    to_question = models.ForeignKey('Question', on_delete=models.CASCADE, related_name='likes')
 
-
-
-
+class Question(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='questions')
+    title = models.CharField(max_length=50) 
+    text = models.TextField(blank=True)
+    rating = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField('Tag', blank=True, related_name='questions')
