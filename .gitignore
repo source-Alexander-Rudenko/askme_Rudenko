@@ -6,7 +6,11 @@
 *.pot
 *.pyc
 /project_dj/project_dj/__pycache__
-/project_dj/db.sqlite3
+/project_dj/project_dj/__init__.py
+/project_dj/app/management/__init__.py
+/project_dj/app/management/commands/__init__.py
+app/management/__init__.py
+app/management/commands/__init__.py
 
 local_settings.py
 db.sqlite3

@@ -26,12 +26,12 @@ def paginate(objects_list, request, per_page=3):
     return page_obj
 
 def index(request):
-    questions = models.QUESTIONS
+    questions = models.Question
     page_obj = paginate(questions, request, 7)
     context = {'page_obj': page_obj,
-               'questions': models.QUESTIONS,
-               'tags': models.TAGS,
-               'users': models.USER,
+               'questions': models.Question,
+               'tags': models.Tag,
+               'users': models.Profile,
                }
     return render(request, 'index.html', context)
 
@@ -39,16 +39,16 @@ def index(request):
 
 def question(request, question_id: int):
     try:
-        questions = models.QUESTIONS
-        answers = models.ANSWERS
+        questions = models.Question
+        answers = models.Answer
         page_obj = paginate(answers, request, 3)
         question = questions[question_id]
 
         context = {
                     'page_obj': page_obj,
                     'question': question,
-                    'tags': models.TAGS,
-                    'users': models.USER,
+                    'tags': models.Tag,
+                    'users': models.Profile,
                     'answers': answers,
                     }
     except:
@@ -59,12 +59,12 @@ def question(request, question_id: int):
 
 def hot(request):
     try:   
-        questions = models.QUESTIONS[5:]
+        questions = models.Question[5:]
         page_obj = paginate(questions, request, 6)
         context = {'page_obj': page_obj,
-                'questions': models.QUESTIONS,
-                'tags': models.TAGS,
-                'users': models.USER,
+                'questions': models.Question,
+                'tags': models.Tag,
+                'users': models.Profile,
                 }
         return render(request, 'hot.html', context)
     except:
