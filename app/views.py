@@ -26,35 +26,36 @@ def paginate(objects_list, request, per_page=3):
     return page_obj
 
 def index(request):
-    questions = models.Question
+    questions = models.Question.objects.all()  # Получение всех объектов Question
     page_obj = paginate(questions, request, 7)
-    context = {'page_obj': page_obj,
-               'questions': models.Question,
-               'tags': models.Tag,
-               'users': models.Profile,
-               }
+    context = {
+        'page_obj': page_obj,
+        'tags': models.Tag.objects.all(),  # Получение всех объектов Tag
+        'users': models.Profile.objects.all(),  # Получение всех объектов Profile
+    }
     return render(request, 'index.html', context)
+
 
 
 
 def question(request, question_id: int):
     try:
-        questions = models.Question
-        answers = models.Answer
+        question = models.Question.objects.get(pk=question_id)  # Получение конкретного вопроса
+        answers = models.Answer.objects.filter(question=question)  # Получение всех ответов на вопрос
         page_obj = paginate(answers, request, 3)
-        question = questions[question_id]
 
         context = {
-                    'page_obj': page_obj,
-                    'question': question,
-                    'tags': models.Tag,
-                    'users': models.Profile,
-                    'answers': answers,
-                    }
-    except:
+            'page_obj': page_obj,
+            'question': question,
+            'tags': models.Tag.objects.all(),  # Получение всех объектов Tag
+            'users': models.Profile.objects.all(),  # Получение всех объектов Profile
+            'answers': answers,
+        }
+    except models.Question.DoesNotExist:
         raise Http404("Question does not exist")
-    
+
     return render(request, 'question_detail.html', context)
+
         
 
 def hot(request):
