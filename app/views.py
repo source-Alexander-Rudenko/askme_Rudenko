@@ -95,60 +95,59 @@ def question(request, question_id):
             num_page = (answers_cnt // 10) + 1
             return HttpResponseRedirect(reverse("question", args=[question_id]) + f"?page=1#answer-{answer_id}")
     context['form'] = answer_form
-    return render(request, "question.html", context)
+    return render(request, "question_detail.html", context)
 
 
 
+@csrf_protect
 def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('index')
-            else:
-                form.add_error(None, 'Invalid username or password.')
-    else:
-        form = AuthenticationForm()
-    
-    context = { 'form': form }
+    context = {}
     sidebar_content(context)
-    return render(request, 'loging.html', context=context)
+    if request.method == 'GET':
+        login_form = LoginForm()
+    elif request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            user = auth.authenticate(request=request, **login_form.cleaned_data)
+            if user:
+                auth.login(request, user)
+                continue_url = request.GET.get("continue")
+                if continue_url is None or continue_url[0] != "/":
+                    continue_url = "/"
+                return HttpResponseRedirect(continue_url)
+            else:
+                login_form.add_error(field=None, error="Wrong username or/and password")
+    context['form'] = login_form
+    return render(request, "loging.html", context)
 
     
 
 
 
-
+@csrf_protect
 def logout(request):
     auth.logout(request)
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+# views.py
+@csrf_protect
 def signup(request):
     if request.method == 'GET':
         user_form = RegistrationForm()
-    
-    if request.method == 'POST':
+    elif request.method == 'POST':
         user_form = RegistrationForm(request.POST, request.FILES)
         if user_form.is_valid():
-            user_form.save()
-
-            user = auth.authenticate(request=request, **user_form.cleaned_data)
-            if user:
+            user = user_form.save()
+            user = auth.authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password'])
+            if user is not None:
                 auth.login(request, user)
-                return redirect(reverse('index'))
-            else:
-                user_form.add_error(field=None, error='Error while creating user')
-    
-    context = { 'form': user_form }
+                return HttpResponseRedirect("/")
+        else:
+            messages.error(request, "There was an error with your registration. Please check your details and try again.")
+    context = {'form': user_form}
     sidebar_content(context)
-
     return render(request, 'signup.html', context=context)
-
 
 @login_required(login_url='login', redirect_field_name='continue')
 def ask(request):

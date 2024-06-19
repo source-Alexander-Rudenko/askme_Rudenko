@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load bootstrap5 %}
 {% load static %} 
 
 {% block content %}
@@ -8,27 +9,13 @@
     </div>
 </main>
 <div class="col-8 flex-column flex-column min-vh-100">
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="userLogin" class="form-label">Username</label>
-            <input type="text" class="form-control" name="username" id="userLogin" placeholder="Enter your username" />
-        </div>
-        <div class="mb-3">
-            <label for="userPsw" class="form-label">Password</label>
-            <input type="password" name="password" id="userPsw" class="form-control" placeholder="Enter your password" />
-        </div>
-        {% if form.errors %}
-            <div class="alert alert-danger" role="alert">
-                {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                        {{ error }}
-                    {% endfor %}
-                {% endfor %}
-            </div>
-        {% endif %}
-        <button type="submit" class="btn btn-outline-success mt-2">Log In!</button>
-    </form>
+    <div>
+        <form action="/login/?continue=/" method="post">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button type="submit" class="btn btn-outline-dark me-2">Log in</button>
+        </form>
+      </div> 
     
     <a href="{% url 'signup' %}">Create new account!</a>
 </div>

@@ -4,52 +4,49 @@ from django.db import IntegrityError
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.contrib.auth import hashers
 from . import models
+from .models import Profile
+
 
 
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
-
-# forms.py
+## forms.py
 from django import forms
 from django.contrib.auth.models import User
-from django.db import IntegrityError, transaction
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
-from django.contrib.auth import hashers
-from . import models
-
+from django.core.exceptions import ValidationError
+from .models import Profile
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
-    check_password = forms.CharField(widget=forms.PasswordInput)
-    upload_avatar = forms.ImageField(required=False)
+    check_password = forms.CharField(widget=forms.PasswordInput, label='Repeat Password')
+    avatar = forms.ImageField(required=False, label='Avatar')
 
     class Meta:
         model = User
         fields = ["username", "email", "first_name", "last_name"]
 
     def clean(self):
-        username = self.cleaned_data.get('username')
-        password_1 = self.cleaned_data.get('password')
-        password_2 = self.cleaned_data.get('check_password')
+        cleaned_data = super().clean()
+        password_1 = cleaned_data.get('password')
+        password_2 = cleaned_data.get('check_password')
 
-        if models.Profile.objects.get_user_by_username(username):
-            self.add_error('username', IntegrityError("User already exists"))
+        if password_1 and password_1 != password_2:
+            raise ValidationError("Passwords don't match")
 
-        if password_1 != password_2:
-            self.add_error(None, ValidationError("Passwords don't match", code='invalid'))
-
-        return self.cleaned_data
+        return cleaned_data
 
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
-            profile = models.Profile(user=user)
+            profile = Profile(user=user)
             profile.save()
         return user
+
+
 
 
 class ProfileEditForm(forms.ModelForm):
