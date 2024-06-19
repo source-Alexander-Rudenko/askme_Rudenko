@@ -1,24 +1,35 @@
-{% extends "layouts/base.html" %} {% load static %} {%block content%}
+{% extends "layouts/base.html" %}
+{% load static %} 
+
+{% block content %}
 <main class="container-sm-fluid container-lg mt-4">
-	<div class="d-flex gap-3 align-items-center">
-		<h1>Log In</h1>
-	</div>
+    <div class="d-flex gap-3 align-items-center">
+        <h1>Log In</h1>
+    </div>
 </main>
 <div class="col-8 flex-column flex-column min-vh-100">
-	<form method="post">
-		<div class="mb-3">
-			<label for="exampleFormControlInput1" class="form-label">Email address</label>
-			<input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="name@mail.ru" />
-		</div>
-		<label for="inputPassword5" class="form-label">Password</label>
-		<input type="password" id="inputPassword5" name="password" class="form-control" aria-describedby="passwordHelpBlock" />
-		<div id="passwordHelpBlock" class="form-text">Your password must be 8-20 characters long</div>
-	
-		<button type="submit" class="btn btn-outline-success mt-2">Log In!</button>
-	</form>
-	
-	<a href="{% url 'signup' %}">Create new account!</a>
-
-	
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="userLogin" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" id="userLogin" placeholder="Enter your username" />
+        </div>
+        <div class="mb-3">
+            <label for="userPsw" class="form-label">Password</label>
+            <input type="password" name="password" id="userPsw" class="form-control" placeholder="Enter your password" />
+        </div>
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <button type="submit" class="btn btn-outline-success mt-2">Log In!</button>
+    </form>
+    
+    <a href="{% url 'signup' %}">Create new account!</a>
 </div>
 {% endblock %}
