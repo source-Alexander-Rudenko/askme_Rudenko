@@ -26,15 +26,48 @@ def paginate(objects_list, request, per_page=3):
     return page_obj
 
 def index(request):
-    questions = models.Question.objects.all()  # Получение всех объектов Question
+    questions = models.Question.objects.order_by('-created_at')  # Получение всех объектов Question
     page_obj = paginate(questions, request, 7)
     context = {
         'page_obj': page_obj,
         'tags': models.Tag.objects.all(),  # Получение всех объектов Tag
         'users': models.Profile.objects.all(),  # Получение всех объектов Profile
     }
+    sidebar_content(context)
     return render(request, 'index.html', context)
 
+def sidebar_content(context):
+    context['top_tags'] = models.Tag.objects.get_top5()
+    context['top_users'] = models.Profile.objects.get_top_5()
+
+def tag(request, tag_name):
+    try:
+        tag = models.Tag.objects.get(name=tag_name)
+        questions = models.Question.objects.filter(tags=tag)
+        page_obj = paginate(questions, request, 7)
+        
+        context = {
+            'page_obj': page_obj,
+            'tag': tag,
+            'tags': models.Tag.objects.all(),  # Получение всех объектов Tag
+            'users': models.Profile.objects.all(),  # Получение всех объектов Profile
+        }
+        sidebar_content(context)
+        return render(request, 'tag.html', context)
+    except models.Tag.DoesNotExist:
+        raise Http404("Tag does not exist")
+
+
+def tag_view(request, tag_name):
+    tag = models.Tag.objects.get(name=tag_name)
+    questions = models.Question.objects.filter(tags=tag)
+    page_obj = paginate(questions, request, 7)
+    context = {
+        'tag': tag,
+        'page_obj': page_obj,
+    }
+    sidebar_content(context)  # Обновление контекста с топ 5 тегов и пользователей
+    return render(request, 'tag_detail.html', context)
 
 
 
@@ -51,6 +84,7 @@ def question(request, question_id: int):
             'users': models.Profile.objects.all(),  # Получение всех объектов Profile
             'answers': answers,
         }
+        sidebar_content(context)
     except models.Question.DoesNotExist:
         raise Http404("Question does not exist")
 
@@ -59,17 +93,15 @@ def question(request, question_id: int):
         
 
 def hot(request):
-    try:   
-        questions = models.Question[5:]
-        page_obj = paginate(questions, request, 6)
-        context = {'page_obj': page_obj,
-                'questions': models.Question,
-                'tags': models.Tag,
-                'users': models.Profile,
-                }
-        return render(request, 'hot.html', context)
-    except:
-        raise Http404("Page does not exist")
+    questions = models.Question.objects.order_by('-rating') # Получение всех объектов Question
+    page_obj = paginate(questions, request, 7)
+    context = {
+        'page_obj': page_obj,
+        'tags': models.Tag.objects.all(),  # Получение всех объектов Tag
+        'users': models.Profile.objects.all(),  # Получение всех объектов Profile
+    }
+    sidebar_content(context)
+    return render(request, 'hot.html', context)
 
 def loging(request):
     return render(request, 'loging.html')

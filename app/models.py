@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models import Count
 from django.contrib.auth.models import User
+from django.db.models import ObjectDoesNotExist
 
 class ProfileManager(models.Manager):
     def get_top_5(self):

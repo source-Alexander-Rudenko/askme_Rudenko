@@ -1,9 +1,9 @@
 {% extends "layouts/base.html" %}
+
 {% block content %}
 <main class="container-sm-fluid container-lg mt-4">
     <div class="d-flex gap-3 align-items-center">
-        <h1>Hottest posts</h1>
-        <a href="{% url 'index' %}">to main page</a>
+        <h1>Tag: {{ tag.name }}</h1>
     </div>
 </main>
 <div class="col-8">
