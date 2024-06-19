@@ -1,0 +1,21 @@
+
+{% load static %}
+<nav class="navbar" style="background-color: rgb(118, 228, 173)">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <p class="font-weight-bold" style="margin: 16px">
+                <span class="invisible-link">AskMINT</span>
+            </p>
+        </a>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <a class="btn btn-outline-success" href="{% url 'ask' %}">Ask</a>
+        </form>
+        <div class="d-flex justify-content-between gap-2">
+            <div>
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>

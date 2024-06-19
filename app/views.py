@@ -21,6 +21,8 @@ from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import LoginForm
+from django.contrib.auth import logout as auth_logout
+
 
 
 
@@ -125,8 +127,9 @@ def login_view(request):
 
 
 @csrf_protect
+@login_required(login_url="login")
 def logout(request):
-    auth.logout(request)
+    auth_logout(request)
     return redirect(request.META.get('HTTP_REFERER'))
 
 
