@@ -14,11 +14,10 @@
 
 5. Запустите сервер разработки с помощью команды `python manage.py runserver 8006`.
 
-
 ### Контакты
 
-telegram: @ale_username  почта: rudenko_alexander@hotmail.com
+telegram: @ale_username почта: rudenko_alexander@hotmail.com
 
 ### Автор
 
-Автор проекта: Руденко Александр WEB-13
+Автор проекта: Руденко Александр WEB-22
